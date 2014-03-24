@@ -1,0 +1,17 @@
+project/project/*
+
+project/target/*
+
+.cache
+
+.classpath
+
+.project
+
+.settings/org.scala-ide.sdt.core.prefs
+
+.target/*
+
+target/*
+
+bin/*
