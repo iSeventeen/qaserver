@@ -9,8 +9,10 @@ object ApplicationBuild extends Build {
 
   val appDependencies = Seq(
     // Add your project dependencies here,
-    jdbc,
-    anorm
+    jdbc
+    , anorm
+    , "mysql" % "mysql-connector-java" % "5.1.21"
+    , "com.github.tototoshi" %% "play-flyway" % "0.2.0"
   )
 
 
