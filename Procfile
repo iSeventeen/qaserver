@@ -1,1 +1,1 @@
-web: target/start -Dconfig.resource=heroku-prod.conf -Dhttp.port=$PORT -Ddb.default.url=$DATABASE_URL
+web: target/start -Dconfig.resource=heroku-dev.conf -Dhttp.port=${PORT} ${JAVA_OPTS}
