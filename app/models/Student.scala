@@ -5,8 +5,8 @@ import play.api.Play.current
 import anorm._
 import anorm.SqlParser._
 
-case class User(
-  userId: Pk[Long],
+case class Student(
+  id: Pk[Long],
   cardId: Long,
   name: String,
   age: Option[Int],
@@ -15,9 +15,9 @@ case class User(
 
 }
 
-object User {
+object Student {
 
-  val TABLE_NAME = "user"
+  val TABLE_NAME = "student"
 
   val sample = {
     get[Pk[Long]]("id") ~
@@ -26,32 +26,32 @@ object User {
       get[Option[Int]]("age") ~
       get[Int]("gender") ~
       get[Option[String]]("avatar") map {
-        case userId ~ cardId ~ name ~ age ~ gender ~ avatar => User(userId, cardId, name, age, gender, avatar)
+        case id ~ cardId ~ name ~ age ~ gender ~ avatar => Student(id, cardId, name, age, gender, avatar)
       }
   }
 
-  def all(): List[User] = DB.withConnection { implicit connection =>
-    SQL("select * from user").as(User.sample *)
+  def all(): List[Student] = DB.withConnection { implicit connection =>
+    SQL("select * from student").as(Student.sample *)
   }
 
-  def findByCardId(cardId: Long): Option[User] = DB.withConnection { implicit connection =>
-    SQL("select * from user where card_id={cardId}").on('cardId -> cardId).as(User.sample.singleOpt)
+  def findByCardId(cardId: Long): Option[Student] = DB.withConnection { implicit connection =>
+    SQL("select * from student where card_id={cardId}").on('cardId -> cardId).as(Student.sample.singleOpt)
   }
 
-  def save(user: User) = DB.withConnection { implicit connection =>
+  def create(cardId: Long, name: String, age: Int, gender: Int, avatar: Option[String]) = DB.withConnection { implicit connection =>
     SQL(
       """
-      insert into user(card_id, name, age, gender, avatar) values (
+      insert into student(card_id, name, age, gender, avatar) values (
         {cardId}, {name}, {age}, {gender}, {avatar}
         )
       """
     ).on(
-        'cardId -> user.cardId,
-        'name -> user.name,
-        'age -> user.age,
-        'gender -> user.gender,
-        'avatar -> user.avatar
-      ).executeInsert(User.sample.singleOpt)
+        'cardId -> cardId,
+        'name -> name,
+        'age -> age,
+        'gender -> gender,
+        'avatar -> avatar
+      ).executeInsert(Student.sample.singleOpt)
   }
 
 }

@@ -3,17 +3,23 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index
+GET    /                       controllers.Application.index
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.at(path="/public", file)
+GET    /assets/*file           controllers.Assets.at(path="/public", file)
 
 # QA Server API
-GET     /api/hotwords               controllers.API.getHotWords()
+GET    /api/hotwords           controllers.api.QAPI.getHotWords()
+GET    /api/hotwords/:id       controllers.api.QAPI.gethotWord(id: Long)
+
+# Garten Server API
+POST   /api/students           controllers.api.GAPI.createStudent(cardId: Long, name, age: Int, gender: Int, avatar: Option[String] ?= None)
+GET    /api/students/:cardId   controllers.api.GAPI.getStudent(cardId: Long)
 
 
 # API documentation using Swagger
-GET      /docs/api                            controllers.Assets.at(path="/swagger-ui", file="index.html")
-GET      /docs/*file                          controllers.Assets.at(path="/swagger-ui", file)
-GET      /api/docs                            controllers.ApiHelpController.getResources
-GET      /api/docs/items                      controllers.ApiHelpController.getResource(path = "/api/docs/items")
+GET    /docs/api               controllers.Assets.at(path="/swagger-ui", file="index.html")
+GET    /docs/*file             controllers.Assets.at(path="/swagger-ui", file)
+GET    /api/docs               controllers.ApiHelpController.getResources
+GET    /api/docs/qa            controllers.ApiHelpController.getResource(path = "/api/docs/qa")
+GET    /api/docs/garten        controllers.ApiHelpController.getResource(path = "/api/docs/garten")

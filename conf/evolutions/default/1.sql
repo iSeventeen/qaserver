@@ -8,8 +8,7 @@ CREATE TABLE student(
   name VARCHAR(50) NOT NULL,
   age SMALLINT,
   gender SMALLINT,
-  avatar VARCHAR(255),
-  password VARCHAR(255) NOT NULL
+  avatar VARCHAR(255)
 );
 
 CREATE TABLE parent(
@@ -27,7 +26,7 @@ CREATE TABLE hot_words(
 );
 
 # ---!Downs
-DROP TABLE if exists users;
+DROP TABLE if exists student;
 DROP TABLE if exists parent;
 DROP TABLE if exists hot_words;
 

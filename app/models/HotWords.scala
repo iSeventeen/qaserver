@@ -6,7 +6,7 @@ import anorm._
 import anorm.SqlParser._
 
 case class HotWords(
-  wordId: Long,
+  id: Pk[Long],
   word: String) {
 
 }
@@ -15,14 +15,18 @@ object HotWords {
   val TABLE_NAME = "hot_words"
 
   val sample = {
-    get[Long]("word_id") ~
+    get[Pk[Long]]("id") ~
       get[String]("word") map {
-        case wordId ~ word => HotWords(wordId, word)
+        case id ~ word => HotWords(id, word)
       }
   }
 
   def all(): Seq[HotWords] = DB.withConnection { implicit connection =>
     SQL("select * from hot_words").as(HotWords.sample *)
+  }
+
+  def findById(id: Long): Option[HotWords] = DB.withConnection { implicit connection =>
+    SQL("select * from hot_words where id = {id}").on('id -> id).as(HotWords.sample.singleOpt)
   }
 
 }
