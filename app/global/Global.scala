@@ -24,12 +24,13 @@ object Global extends GlobalSettings {
     Play.current.resource(migrationFilesLocation) match {
       case Some(r) => {
         Logger.info(s"Directory for migration files found: ${migrationFilesLocation}")
-
+        /*
         val flyway = new Flyway
         flyway.setDataSource(DB.getDataSource(dbName))
         flyway.setLocations(migrationFilesLocation)
         flyway.setInitOnMigrate(true)
         flyway.migrate()
+        */
       }
 
       case None => {
