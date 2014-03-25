@@ -2,11 +2,23 @@
 
 # ---!Ups
 
-CREATE TABLE users(
-  id bigserial NOT NULL primary key,
-  email VARCHAR(255) NOT NULL,
-  name VARCHAR(255) NOT NULL,
+CREATE TABLE student(
+  id BIGSERIAL NOT NULL PRIMARY KEY,
+  card_id BIGINT,
+  name VARCHAR(50) NOT NULL,
+  age SMALLINT,
+  gender SMALLINT,
+  avatar VARCHAR(255),
   password VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE parent(
+  id BIGSERIAL NOT NULL PRIMARY KEY,
+  name VARCHAR(50) NOT NULL,
+  role VARCHAR(50) NOT NULL,
+  avatar VARCHAR(255) NOT NULL,
+  student bigint,
+  FOREIGN KEY(student) REFERENCES student(id) on delete cascade
 );
 
 CREATE TABLE hot_words(
@@ -16,5 +28,6 @@ CREATE TABLE hot_words(
 
 # ---!Downs
 DROP TABLE if exists users;
+DROP TABLE if exists parent;
 DROP TABLE if exists hot_words;
 
