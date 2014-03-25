@@ -1,7 +1,5 @@
 package models
 
-import scala.slick.driver.PostgresDriver.simple._
-
 import play.api.db._
 import play.api.Play.current
 import anorm._

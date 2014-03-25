@@ -13,7 +13,7 @@ object ApplicationBuild extends Build {
     , anorm
     , "mysql" % "mysql-connector-java" % "5.1.21"
     , "postgresql" % "postgresql" % "9.1-901.jdbc4"
-    , "com.github.tototoshi" %% "play-flyway" % "0.2.0"
+//    , "com.github.tototoshi" %% "play-flyway" % "0.2.0"
     , "com.wordnik" % "swagger-play2_2.10" % "1.2.5"
 //    , "com.typesafe.slick" %% "slick" % "2.0.1"
 //    , "com.github.tototoshi" %% "slick-joda-mapper" % "1.0.1"
