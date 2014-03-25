@@ -1,0 +1,10 @@
+CREATE TABLE users(
+  user_id BIGINT NOT NULL PRIMARY KEY,
+  username VARCHAR(50) NOT NULL,
+  password VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE hot_words(
+  word_id BIGINT NOT NULL PRIMARY KEY,
+  word VARCHAR(255) NOT NULL
+);
