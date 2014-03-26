@@ -12,7 +12,6 @@ case class Student(
   age: Option[Int],
   gender: Int,
   avatar: Option[String]) {
-
 }
 
 object Student {
@@ -34,8 +33,17 @@ object Student {
     SQL("select * from student").as(Student.sample *)
   }
 
-  def findByCardId(cardId: Long): Option[Student] = DB.withConnection { implicit connection =>
-    SQL("select * from student where card_id={cardId}").on('cardId -> cardId).as(Student.sample.singleOpt)
+  def findByCardId(cardId: Long): (Option[Student], List[Parent]) = DB.withConnection { implicit connection =>
+    val studentOpt = SQL("select * from student where card_id={cardId}").on('cardId -> cardId).as(Student.sample.singleOpt)
+
+    val parents = studentOpt match {
+      case Some(student) => {
+        SQL("select * from parent where student={studentId}").on('studentId -> student.id).as(Parent.sample *)
+      }
+
+      case None => List[Parent]()
+    }
+    (studentOpt, parents)
   }
 
   def create(cardId: Long, name: String, age: Int, gender: Int, avatar: Option[String]) = DB.withConnection { implicit connection =>

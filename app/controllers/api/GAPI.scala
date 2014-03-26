@@ -4,7 +4,7 @@ import com.wordnik.swagger.annotations.Api
 import com.wordnik.swagger.annotations.ApiErrors
 import com.wordnik.swagger.annotations.ApiOperation
 import com.wordnik.swagger.annotations.ApiParam
-import controllers.api.JsonImplicits.studentWrites
+import controllers.api.JsonImplicits._
 import javax.ws.rs.PathParam
 import models.Student
 import play.api.libs.json.Json
@@ -26,10 +26,13 @@ object GAPI extends Controller {
   @ApiOperation(value = "Find student by card_id", notes = "Returns a student", responseClass = "Student", httpMethod = "GET")
   @ApiErrors(Array(new ApiError(code = 400, reason = "Invalid card id supplied"), new ApiError(code = 404, reason = "Student not found")))
   def getStudent(@ApiParam(value = "Student Card ID")@PathParam("cardId") cardId: Long) = Action {
-    val studentOpt = Student.findByCardId(cardId)
-    studentOpt match {
-      case Some(student) => Ok(Json.toJson(student))
-      case None => Ok(Json.obj("status" -> "error", "message" -> "Student not found"))
+    val result = Student.findByCardId(cardId)
+
+    result match {
+      case (Some(student), parents) => {
+        Ok(Json.toJson(Json.obj("parents" -> parents, "student" -> student)))
+      }
+      case _ => Ok(Json.obj("status" -> "error", "message" -> "Student not found"))
     }
   }
 
