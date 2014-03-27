@@ -4,7 +4,7 @@
 
 CREATE TABLE student(
   id BIGSERIAL NOT NULL PRIMARY KEY,
-  card_id BIGINT,
+  card_id VARCHAR(255),
   name VARCHAR(50) NOT NULL,
   age SMALLINT,
   gender SMALLINT,

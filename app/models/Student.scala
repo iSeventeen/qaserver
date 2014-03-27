@@ -7,11 +7,13 @@ import anorm.SqlParser._
 
 case class Student(
   id: Pk[Long],
-  cardId: Long,
+  cardId: String,
   name: String,
   age: Option[Int],
   gender: Int,
   avatar: Option[String]) {
+  
+  var parents: List[Parent] = Nil
 }
 
 object Student {
@@ -20,7 +22,7 @@ object Student {
 
   val sample = {
     get[Pk[Long]]("id") ~
-      get[Long]("card_id") ~
+      get[String]("card_id") ~
       get[String]("name") ~
       get[Option[Int]]("age") ~
       get[Int]("gender") ~
@@ -33,7 +35,7 @@ object Student {
     SQL("select * from student").as(Student.sample *)
   }
 
-  def findByCardId(cardId: Long): (Option[Student], List[Parent]) = DB.withConnection { implicit connection =>
+  def findByCardId(cardId: String): (Option[Student], List[Parent]) = DB.withConnection { implicit connection =>
     val studentOpt = SQL("select * from student where card_id={cardId}").on('cardId -> cardId).as(Student.sample.singleOpt)
 
     val parents = studentOpt match {
@@ -46,7 +48,7 @@ object Student {
     (studentOpt, parents)
   }
 
-  def create(cardId: Long, name: String, age: Int, gender: Int, avatar: Option[String]) = DB.withConnection { implicit connection =>
+  def create(cardId: String, name: String, age: Int, gender: Int, avatar: Option[String]) = DB.withConnection { implicit connection =>
     SQL(
       """
       insert into student(card_id, name, age, gender, avatar) values (

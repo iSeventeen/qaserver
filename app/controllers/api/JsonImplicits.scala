@@ -11,25 +11,25 @@ object JsonImplicits {
   implicit val studentWrites = new Writes[Student] {
     def writes(s: Student): JsValue = {
       Json.obj(
-        "id" -> s.id.get
-        , "cardId" -> s.cardId
-        , "name" -> s.name
-        , "age" -> s.age
-        , "gender" -> s.gender
-        , "avatar" -> s.avatar
+        "id" -> s.id.get, "cardId" -> s.cardId, "name" -> s.name, "age" -> s.age, "gender" -> s.gender, "avatar" -> s.avatar, "parents" -> Json.toJson(s.parents)
       )
+    }
+
+    implicit val parentWrites = new Writes[Parent] {
+      def writes(p: Parent): JsValue = {
+        Json.obj(
+          "id" -> p.id.get, "name" -> p.name, "role" -> p.role, "avatar" -> p.avatar, "student" -> p.student
+        )
+      }
     }
   }
 
   implicit val parentWrites = new Writes[Parent] {
     def writes(p: Parent): JsValue = {
       Json.obj(
-        "id" -> p.id.get
-        , "name" -> p.name
-        , "role" -> p.role
-        , "avatar" -> p.avatar
-        , "student" -> p.student
+        "id" -> p.id.get, "name" -> p.name, "role" -> p.role, "avatar" -> p.avatar, "student" -> p.student
       )
     }
   }
+
 }

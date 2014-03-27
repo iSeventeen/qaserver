@@ -13,8 +13,9 @@ GET    /api/hotwords           controllers.api.QAPI.getHotWords()
 GET    /api/hotwords/:id       controllers.api.QAPI.gethotWord(id: Long)
 
 # Garten Server API
-POST   /api/students           controllers.api.GAPI.createStudent(cardId: Long, name, age: Int, gender: Int, avatar: Option[String] ?= None)
-GET    /api/students/:cardId   controllers.api.GAPI.getStudent(cardId: Long)
+POST   /api/students           controllers.api.GAPI.createStudent(cardId: String, name, age: Int, gender: Int, avatar: Option[String] ?= None)
+GET    /api/students/:cardId   controllers.api.GAPI.getStudent(cardId: String)
+GET    /api/parents/:studentId controllers.api.GAPI.getParents(studentId: Long)
 
 
 # API documentation using Swagger

@@ -28,4 +28,10 @@ object Parent {
         case id ~ name ~ role ~ avatar ~ student => Parent(id, name, role, avatar, student)
       }
   }
+
+  def findByStudentId(studentId: Long): List[Parent] = DB.withConnection { implicit connection =>
+    
+   SQL("select * from parent where student={studentId}").on('studentId -> studentId).as(Parent.sample *)
+     
+  }
 }
