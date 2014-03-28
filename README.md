@@ -25,7 +25,7 @@ Install Scala and Play using brew
 
 ###Clone the repository using git
 
-git clone git@github.com:lvxineye/qaserver.git
+	git clone git@github.com:lvxineye/qaserver.git
 
 ###Install local Postgres database
 
