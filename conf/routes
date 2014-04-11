@@ -14,8 +14,14 @@ GET    /api/hotwords/:id       controllers.api.QAPI.gethotWord(id: Long)
 
 # Garten Server API
 POST   /api/students           controllers.api.GAPI.createStudent(cardId: String, name, age: Int, gender: Int, avatar: Option[String] ?= None)
-GET    /api/students/:cardId   controllers.api.GAPI.getStudent(cardId: String)
-GET    /api/parents/:studentId controllers.api.GAPI.getParents(studentId: Long)
+GET    /api/students/all       controllers.api.GAPI.getStudents()
+GET    /api/students/ids       controllers.api.GAPI.getStudentIds()
+# GET    /api/students/ids       controllers.api.GAPI.getStudentsByIds(newCardIds: String, updateCardIds: String)
+GET    /api/students/:cardIds  controllers.api.GAPI.getStudentsByIds(cardIds: String)
+GET    /api/students/:cardId/student   controllers.api.GAPI.getStudent(cardId: String)
+
+GET    /api/parents/all        controllers.api.GAPI.getParents()
+GET    /api/parents/:cardId    controllers.api.GAPI.getParentsById(cardId: String)
 
 
 # API documentation using Swagger

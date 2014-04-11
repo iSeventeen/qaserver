@@ -1,8 +1,23 @@
-CREATE TABLE users(
-  id bigserial NOT NULL primary key,
-  email VARCHAR(255) NOT NULL,
-  name VARCHAR(255) NOT NULL,
-  password VARCHAR(255) NOT NULL
+CREATE TABLE student(
+  id BIGSERIAL NOT NULL,
+  card_id VARCHAR(255) PRIMARY KEY,
+  name VARCHAR(50) NOT NULL,
+  age SMALLINT,
+  gender SMALLINT,
+  avatar VARCHAR(255),
+  created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE parent(
+  id BIGSERIAL NOT NULL PRIMARY KEY,
+  name VARCHAR(50) NOT NULL,
+  role VARCHAR(50) NOT NULL,
+  avatar VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+  student VARCHAR(255),
+  FOREIGN KEY(student) REFERENCES student(card_id) on delete cascade
 );
 
 CREATE TABLE hot_words(

@@ -1,3 +1,4 @@
+/*
 package models
 
 import play.api.db._
@@ -29,4 +30,30 @@ object HotWords {
     SQL("select * from hot_words where id = {id}").on('id -> id).as(HotWords.sample.singleOpt)
   }
 
+}
+* 
+*/
+
+package models
+
+import play.api.db._
+import play.api.Play.current
+
+
+import scala.slick.driver.PostgresDriver.simple._
+import scala.slick.lifted.Tag
+import org.joda.time.DateTime
+import com.github.tototoshi.slick.PostgresJodaSupport._
+
+case class HotWords(
+  id: Option[Long],
+  word: String) {
+
+}
+
+class HotWordsTable(tag: Tag) extends Table[HotWords](tag, "hotwords") {
+  def id = column[Long]("id", O.PrimaryKey, O.AutoInc)
+  def word = column[String]("word")
+  
+  def * = (id.?, word) <> (HotWords.tupled, HotWords.unapply _)
 }

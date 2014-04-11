@@ -1,22 +1,20 @@
 package controllers.api
 
-import models.Student
-import play.api.libs.json.Writes
-import play.api.libs.json.JsValue
-import play.api.libs.json.Json
-import models.Parent
+import models._
+import play.api.libs.json._
 
 object JsonImplicits {
 
-  implicit val studentWrites = new Writes[Student] {
-    def writes(s: Student): JsValue = {
+  implicit val studentWrites = new Writes[StudentObj] {
+    def writes(s: StudentObj): JsValue = {
       Json.obj(
-        "id" -> s.id.get, "cardId" -> s.cardId, "name" -> s.name, "age" -> s.age, "gender" -> s.gender, "avatar" -> s.avatar, "parents" -> Json.toJson(s.parents)
+        "id" -> s.id.get, "cardId" -> s.cardId, "name" -> s.name, "age" -> s.age, "gender" -> s.gender, "avatar" -> s.avatar,
+        "createdAt" -> s.createdAt, "updatedAt" -> s.updatedAt, "parents" -> Json.toJson(s.parents)
       )
     }
 
-    implicit val parentWrites = new Writes[Parent] {
-      def writes(p: Parent): JsValue = {
+    implicit val parentWrites = new Writes[ParentObj] {
+      def writes(p: ParentObj): JsValue = {
         Json.obj(
           "id" -> p.id.get, "name" -> p.name, "role" -> p.role, "avatar" -> p.avatar, "student" -> p.student
         )
@@ -24,12 +22,16 @@ object JsonImplicits {
     }
   }
 
-  implicit val parentWrites = new Writes[Parent] {
-    def writes(p: Parent): JsValue = {
+  implicit val parentWrites = new Writes[ParentObj] {
+    def writes(p: ParentObj): JsValue = {
       Json.obj(
         "id" -> p.id.get, "name" -> p.name, "role" -> p.role, "avatar" -> p.avatar, "student" -> p.student
       )
     }
   }
+
+  implicit val studentFormat = Json.format[Student]
+
+  implicit val parentFormat = Json.format[Parent]
 
 }
