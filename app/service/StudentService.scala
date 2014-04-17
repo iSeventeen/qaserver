@@ -12,7 +12,7 @@ trait StudentService {
 
   def all(): List[Student]
 
-  def findByCardId(cardId: String): (Option[Student], List[Parent])
+  def findById(id: Long): (Option[Student], List[Parent])
 
   def save(student: Student): Int
 
@@ -22,6 +22,7 @@ class StudentServiceImpl extends StudentService {
 
   @Inject
   val ParentService: ParentService = null
+  
   def mgDatabase = Database.forDataSource(DB.getDataSource("default"))
   val students = TableQuery[StudentTable]
 
@@ -29,13 +30,13 @@ class StudentServiceImpl extends StudentService {
     students.list()
   }
 
-  def findByCardId(cardId: String): (Option[Student], List[Parent]) = mgDatabase withSession { implicit session: Session =>
-    val student = students.where(_.cardId === cardId).firstOption
+  def findById(id: Long): (Option[Student], List[Parent]) = mgDatabase withSession { implicit session: Session =>
+    val student = students.where(_.id === id).firstOption
     val parents = student match {
-      case Some(value) => ParentService.findByStudent(value.cardId)
+      case Some(value) => ParentService.findByStudent(id)
       case _ => List[Parent]()
     }
-    
+
     (student, parents)
   }
 

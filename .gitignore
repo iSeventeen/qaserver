@@ -17,3 +17,5 @@ target/*
 bin/*
 
 logs/application.log
+
+public/files/*

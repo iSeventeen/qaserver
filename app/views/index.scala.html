@@ -1,7 +1,152 @@
 @(message: String)
 
-@main("Welcome to Play 2.1") {
+@main("某某幼儿园管理系统") {
+  
+  <form class="form-horizontal" role="form">
+        <div class="form-group">
+          <label for="cardId" class="col-sm-2 control-label">卡号</label>
+          <div class="col-sm-2">
+            <input type="text" class="form-control" id="cardId" placeholder="学生卡号">
+          </div>
     
-    @play20.welcome(message)
+          <label for="name" class="col-sm-2 control-label">姓名</label>
+          <div class="col-sm-2">
+            <input type="text" class="form-control" id="name" placeholder="姓名">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="gender" class="col-sm-2 control-label">性别</label>
+          <div class="col-sm-2">
+            <input type="text" class="form-control" id="gender" placeholder="0或者1">
+          </div>
+          <label for="age" class="col-sm-2 control-label">年龄</label>
+          <div class="col-sm-2">
+            <input type="text" class="form-control" id="age" placeholder="年龄">
+          </div>
+    
+        </div>
+        
+        <div class="form-group">
+          <div class="col-sm-offset-4 col-sm-2">
+            <button type="submit" class="btn btn-primary" id="save">保存</button>
+          </div>
+        </div>
+      </form>
+    
+    <div class="table-responsive">
+
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>卡号</th>
+            <th>姓名</th>
+            <th>性别</th>
+            <th>年龄</th>
+            <th>头像</th>
+            <th>创建时间</th>
+            <th>最后修改时间</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+      
+    <script type="text/javascript">
+    var date2String = function(value){
+      var date = new Date(value);
+      var result = '';
+      result += date.getFullYear();
+      result += '-';
+      result += (date.getMonth() + 1);
+      result += '-';
+      result += date.getDate();
+      result += ' ';
+      result += date.getHours();
+      result += ':';
+      result += date.getMinutes();
+      result += ':';
+      result += date.getSeconds();
+
+      return date.toLocaleString();
+    }
+      
+    var gender = function(value){
+      if(0 == value) {
+        return "男";
+      } else {
+        return "女";
+      }
+    }
+    
+    var addRow = function(item) {
+      $('tbody').append(
+          '<tr>'
+          +'<td><a href="#">'+ item.cardId +'</a></td>'
+          +'<td class="student_name">'+ item.name +'</td>'
+          +'<td>'+ gender(item.gender) +'</td>'
+          +'<td>'+ item.age +'</td>'
+          +'<td>'+ item.avatar +'</td>'
+          +'<td>'+ date2String(item.createdAt) + '</td>'
+          +'<td>'+ date2String(item.updatedAt) +'</td>'
+          +'<td>...</td>'
+          +'</tr>'
+      );
+    };
+    
+    jsRoutes.controllers.Application.allStudents().ajax({
+      contentType: 'application/json',
+      success: function(data) {
+        $.each(data.students, function(i, item){
+          addRow(item);
+        });
+      }
+    });
+    
+    $('#save').click(function(){
+      var cardIdInput = $('#cardId');
+      var cardId = cardIdInput.val();
+      var nameInput = $('#name');
+      var name = nameInput.val();
+      var genderInput = $('#gender');
+      var gender = genderInput.val();
+      var ageInput = $('#age');
+      var age = ageInput.val();
+      var currDate = (new Date());
+      var data = {
+        'cardId': cardId,
+        'name': name,
+        'gender': new Number(gender),
+        'age': new Number(age),
+        'avatar': 'child.png',
+        'createdAt': currDate,
+        'updatedAt': currDate
+      };
+      
+      jsRoutes.controllers.Application.saveStudent().ajax({
+        contentType: "application/json",
+        data: JSON.stringify(data),
+        success: function(value){
+          console.debug(value);
+          addRow(value);
+          cardIdInput.val('');
+          nameInput.val('');
+          genderInput.val('');
+          ageInput.val('');
+        },
+        error: function(error){
+          
+        }
+      });
+    });
+    
+    $('.student_name').live('click', function(){
+      console.debug("click");
+      alert("");
+      
+    });
+    
+    </script>
     
 }

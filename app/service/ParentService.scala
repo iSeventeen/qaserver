@@ -9,7 +9,10 @@ import play.api.db.DB
 import models._
 
 trait ParentService {
-  def findByStudent(cardId: String): List[Parent]
+
+  def all(): List[Parent]
+
+  def findByStudent(cardId: Long): List[Parent]
 
   def save(parent: Parent): Int
 }
@@ -20,8 +23,12 @@ class ParentServiceImpl extends ParentService {
 
   val parents = TableQuery[ParentTable]
 
-  def findByStudent(cardId: String): List[Parent] = mgDatabase withSession { implicit session =>
-    parents.where(_.student === cardId).list()
+  def all(): List[Parent] = mgDatabase withSession { implicit session =>
+    parents.list
+  }
+
+  def findByStudent(id: Long): List[Parent] = mgDatabase withSession { implicit session =>
+    parents.where(_.student === id).list()
   }
 
   def save(parent: Parent): Int = mgDatabase withSession { implicit session =>

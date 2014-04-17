@@ -27,6 +27,7 @@ object Global extends GlobalSettings {
       bind[HotWordService].to[HotWordServiceImpl]
 
       bind[controllers.Application.type].toInstance(controllers.Application)
+      bind[controllers.api.GAPI.type].toInstance(controllers.api.GAPI)
     }
   }
 
