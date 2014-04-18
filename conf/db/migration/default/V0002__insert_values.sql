@@ -1,3 +1,4 @@
+/*
 INSERT INTO grade(name) VALUES('小班');
 INSERT INTO grade(name) VALUES('小班');
 INSERT INTO grade(name) VALUES('中班');
@@ -25,3 +26,5 @@ INSERT INTO parent(card_id, name, role, phone, avatar, student) VALUES('1234566'
 INSERT INTO parent(card_id, name, role, phone, avatar, student) VALUES('1234567', 'Ye2', '外公', '12345678901', 'parent.png', '2');
 
 INSERT INTO parent(card_id, name, role, phone, avatar, student) VALUES('1234568', 'Allen0', '妈妈', '12345678901', 'parent.png', '3');
+
+*/
