@@ -1,4 +1,4 @@
-CREATE TABLE class(
+CREATE TABLE grade(
   id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(255) NOT NULL
 );
@@ -12,7 +12,7 @@ CREATE TABLE staff(
   id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   card_id VARCHAR(255),
   name VARCHAR(50) NOT NULL,
-  class INT REFERENCES class(id),
+  grade INT REFERENCES grade(id),
   position INT REFERENCES position(id),
   phone VARCHAR(50),
   updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
@@ -22,7 +22,7 @@ CREATE TABLE student(
   id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   card_id VARCHAR(255),
   name VARCHAR(50) NOT NULL,
-  class INT REFERENCES class(id),
+  grade INT REFERENCES grade(id),
   address VARCHAR(255),
   gender SMALLINT,
   avatar VARCHAR(255),
@@ -40,7 +40,7 @@ CREATE TABLE parent(
   phone VARCHAR(50),
   created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
-  student BIGINT REFERENCES student(card_id) on delete cascade
+  student BIGINT REFERENCES student(id) on delete cascade
 );
 
 CREATE TABLE record(

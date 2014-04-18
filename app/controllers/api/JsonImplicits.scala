@@ -3,7 +3,7 @@ package controllers.api
 import anorm._
 import models._
 import play.api.libs.json._
-import java.util.Date
+import org.joda.time.DateTime
 
 object JsonImplicits {
 
@@ -57,6 +57,13 @@ object JsonImplicits {
   }
   * 
   */
+  
+    implicit val idsWrites = new Writes[(Option[Long], Option[DateTime])] {
+      def writes(value: (Option[Long], Option[DateTime])): JsValue = {
+        Json.obj("id" -> value._1,
+          "updatedAt" -> value._2)
+      }
+    }
 
   implicit val studentFormat = Json.format[Student]
 

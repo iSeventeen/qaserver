@@ -1,4 +1,4 @@
-CREATE TABLE class(
+CREATE TABLE grade(
   id BIGSERIAL NOT NULL PRIMARY KEY,
   name VARCHAR(255) NOT NULL
 );
@@ -12,7 +12,7 @@ CREATE TABLE staff(
   id BIGSERIAL NOT NULL PRIMARY KEY,
   card_id VARCHAR(255),
   name VARCHAR(50) NOT NULL,
-  class INT REFERENCES class(id),
+  grade INT REFERENCES grade(id),
   position INT REFERENCES position(id),
   phone VARCHAR(50),
   updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
@@ -22,9 +22,9 @@ CREATE TABLE student(
   id BIGSERIAL NOT NULL PRIMARY KEY,
   card_id VARCHAR(255),
   name VARCHAR(50) NOT NULL,
-  class INT REFERENCES class(id),
-  address VARCHAR(255),
   gender SMALLINT,
+  grade INT REFERENCES grade(id),
+  address VARCHAR(255),
   avatar VARCHAR(255),
   note TEXT,
   created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
@@ -40,7 +40,7 @@ CREATE TABLE parent(
   phone VARCHAR(50),
   created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
-  student BIGINT REFERENCES student(card_id) on delete cascade
+  student BIGINT REFERENCES student(id) on delete cascade
 );
 
 CREATE TABLE record(
@@ -48,7 +48,7 @@ CREATE TABLE record(
   card_id VARCHAR(255),
   video VARCHAR(255),
   in_out INT,
-  created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+  created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
 );
 
 

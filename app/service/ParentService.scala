@@ -1,7 +1,7 @@
 package service
 
-import scala.slick.driver.PostgresDriver.simple._
-import com.github.tototoshi.slick.PostgresJodaSupport._
+import scala.slick.driver.MySQLDriver.simple._
+import com.github.tototoshi.slick.MySQLJodaSupport._
 
 import play.api.Play.current
 import play.api.db.DB

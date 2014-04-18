@@ -5,8 +5,8 @@
 # Home page
 GET    /                            controllers.Application.index
 
-GET    /students/all                controllers.Application.allStudents()
-POST   /students/save               controllers.Application.saveStudent()
+GET    /students                    controllers.Application.allStudents()
+POST   /students                    controllers.Application.saveStudent()
 
 # Javascript routing
 GET    /assets/javascripts/routes   controllers.Application.javascriptRoutes()
@@ -20,14 +20,15 @@ GET    /api/hotwords                controllers.api.QAPI.getHotWords()
 GET    /api/hotwords/:id            controllers.api.QAPI.gethotWord(id: Long)
 
 # Garten Server API
-POST   /api/students/save           controllers.api.GAPI.createStudent(cardId: Option[String], name: String, gender: Int, grade: Int, address: String, avatar: Option[String] ?= None, note: Option[String] ?= None)
-GET    /api/students/all            controllers.api.GAPI.getStudents()
+POST   /api/students                controllers.api.GAPI.createStudent()
+GET    /api/students                controllers.api.GAPI.getStudents()
 GET    /api/students/ids            controllers.api.GAPI.getStudentIds()
-# GET    /api/students/ids               controllers.api.GAPI.getStudentsByIds(newCardIds: String, updateCardIds: String)
 GET    /api/students/:cardIds       controllers.api.GAPI.getStudentsByIds(cardIds: String)
 GET    /api/students/:id/student    controllers.api.GAPI.getStudent(id: Long)
 
-GET    /api/parents/all             controllers.api.GAPI.getParents()
+GET    /api/parents                 controllers.api.GAPI.getParents()
+GET    /api/parents/ids             controllers.api.GAPI.getParentIds()
+GET    /api/parents/:ids            controllers.api.GAPI.getParentsByIds(ids: String)
 GET    /api/parents/:studentId      controllers.api.GAPI.getParentsById(studentId: Long)
 
 # API documentation using Swagger

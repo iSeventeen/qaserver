@@ -1,9 +1,9 @@
 package models
 
-import scala.slick.driver.PostgresDriver.simple._
+import scala.slick.driver.MySQLDriver.simple._
+import com.github.tototoshi.slick.MySQLJodaSupport._
 import scala.slick.lifted.Tag
 import org.joda.time.DateTime
-import com.github.tototoshi.slick.PostgresJodaSupport._
 
 import org.joda.time.DateTime
 

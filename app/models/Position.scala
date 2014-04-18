@@ -5,14 +5,14 @@ import com.github.tototoshi.slick.PostgresJodaSupport._
 
 import scala.slick.lifted._
 
-case class Position(
+case class JobTitle(
   id: Option[Long],
   name: String)
 
-class PositionTable(tag: Tag) extends Table[Grade](tag, "grade") {
+class JobTitleTable(tag: Tag) extends Table[JobTitle](tag, "job_title") {
 
   def id = column[Long]("id", O.PrimaryKey, O.AutoInc)
   def name = column[String]("name", O.NotNull)
 
-  def * = (id.?, name) <> (Grade.tupled, Grade.unapply _)
+  def * = (id.?, name) <> (JobTitle.tupled, JobTitle.unapply _)
 }

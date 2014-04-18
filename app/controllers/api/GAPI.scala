@@ -67,12 +67,6 @@ object GAPI extends Controller {
   @ApiErrors(Array(new ApiError(code = 404, reason = "not found result")))
   def getStudentIds() = Action {
 
-    implicit val idsWrites = new Writes[(Option[Long], Option[DateTime])] {
-      def writes(value: (Option[Long], Option[DateTime])): JsValue = {
-        Json.obj("id" -> value._1,
-          "updatedAt" -> value._2)
-      }
-    }
     val students = StudentService.all
     if (null == students || 0 == students.length) {
       Ok(Json.obj("status" -> "error", "message" -> "Student not found"))
@@ -106,6 +100,33 @@ object GAPI extends Controller {
       Ok(Json.obj("status" -> "error", "message" -> "Parents not found"))
     } else {
       Ok(Json.toJson(parents))
+    }
+  }
+
+  @ApiOperation(value = "Find the parents by IDs", notes = "Returns a array of parents", responseClass = "Parent[]", httpMethod = "GET")
+  @ApiErrors(Array(new ApiError(code = 400, reason = "Invalid IDs"), new ApiError(code = 404, reason = "Parents not found")))
+  def getParentsByIds(@ApiParam(value = "The array string of Parent ID")@PathParam("IDs") ids: String) = Action {
+
+    val parents = ParentService.all
+    val idList = ids.split(",").toList
+    if (null == parents || 0 == parents.length) {
+      Ok(Json.obj("status" -> "error", "message" -> "Parents not found"))
+    } else {
+      val objs = parents.filter(p => idList.contains(p.id))
+      Ok(Json.toJson(objs))
+    }
+  }
+
+  @ApiOperation(value = "Find all id and updatedAt of parent", notes = "Returns a array of Tuple contains cardId and updateAt", responseClass = "List[(String, Date)]", httpMethod = "GET")
+  @ApiErrors(Array(new ApiError(code = 404, reason = "not found result")))
+  def getParentIds() = Action {
+
+    val parents = ParentService.all
+    if (null == parents || 0 == parents.length) {
+      Ok(Json.obj("status" -> "error", "message" -> "Parent not found"))
+    } else {
+      val result = parents.map(parent => (parent.id, parent.updatedAt))
+      Ok(Json.toJson(result))
     }
   }
 
