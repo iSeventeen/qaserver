@@ -19,3 +19,5 @@ bin/*
 logs/application.log
 
 public/files/*
+
+RUNNING_PID

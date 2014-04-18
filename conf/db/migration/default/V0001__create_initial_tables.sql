@@ -17,7 +17,7 @@ CREATE TABLE staff(
   grade INT REFERENCES grade(id),
   position INT REFERENCES job_title(id),
   phone VARCHAR(50),
-  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE student(
@@ -29,8 +29,8 @@ CREATE TABLE student(
   gender SMALLINT,
   avatar VARCHAR(255),
   note TEXT,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  created_at TIMESTAMP,
+  updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE parent(
@@ -40,8 +40,8 @@ CREATE TABLE parent(
   role VARCHAR(50) NOT NULL,
   avatar VARCHAR(255) NOT NULL,
   phone VARCHAR(50),
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  created_at TIMESTAMP,
+  updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
   student BIGINT REFERENCES student(id) on delete cascade
 );
 
