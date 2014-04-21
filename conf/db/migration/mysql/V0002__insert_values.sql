@@ -25,3 +25,5 @@ INSERT INTO parent(card_id, name, role, phone, avatar, student) VALUES('1234566'
 INSERT INTO parent(card_id, name, role, phone, avatar, student) VALUES('1234567', 'Ye2', '外公', '12345678901', 'parent.png', '2');
 
 INSERT INTO parent(card_id, name, role, phone, avatar, student) VALUES('1234568', 'Allen0', '妈妈', '12345678901', 'parent.png', '3');
+
+INSERT INTO parent(card_id, name, role, phone, avatar, student) VALUES('02303030383834363438360D0A03', '程程', '妈妈', '12345678901', 'parent.png', '3');
